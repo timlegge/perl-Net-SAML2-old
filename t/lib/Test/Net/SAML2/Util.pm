@@ -97,11 +97,11 @@ sub override_verify_x509_verify {
     my $return_ok = shift;
 
     return override(
-        'Crypt::OpenSSL::VerifyX509::verify' => sub {
+        'Crypt::OpenSSL::Verify::verify' => sub {
             return $return_ok if $return_ok;
             die
 
-            "override of Crypt::OpenSSL::VerifyX509::verify says failure!";
+            "override of Crypt::OpenSSL::Verify::verify says failure!";
         }
     );
 }

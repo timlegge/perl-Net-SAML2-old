@@ -26,7 +26,7 @@ Net::SAML2::Binding::POST - HTTP POST binding for SAML2
 
 use Net::SAML2::XML::Sig;
 use MIME::Base64 qw/ decode_base64 /;
-use Crypt::OpenSSL::VerifyX509;
+use Crypt::OpenSSL::Verify;
 
 =head2 new( )
 
@@ -70,7 +70,7 @@ sub handle_response {
         my $cert = $x->signer_cert
             or die "Certificate not provided and not in SAML Response, cannot validate";
 
-        my $ca = Crypt::OpenSSL::VerifyX509->new($self->cacert);
+        my $ca = Crypt::OpenSSL::Verify->new($self->cacert);
         if ($ca->verify($cert)) {
             return sprintf("%s (verified)", $cert->subject);
         } else {
