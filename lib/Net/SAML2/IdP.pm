@@ -181,7 +181,7 @@ sub BUILD {
     my($self) = @_;
 
     if ($self->cacert) {
-        my $ca = Crypt::OpenSSL::Verify->new($self->cacert);
+        my $ca = Crypt::OpenSSL::Verify->new($self->cacert, { strict_certs => 0, });
 
         for my $use (keys %{$self->certs}) {
             my $cert = Crypt::OpenSSL::X509->new_from_string($self->certs->{$use});

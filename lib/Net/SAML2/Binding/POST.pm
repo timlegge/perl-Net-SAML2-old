@@ -70,7 +70,7 @@ sub handle_response {
         my $cert = $x->signer_cert
             or die "Certificate not provided and not in SAML Response, cannot validate";
 
-        my $ca = Crypt::OpenSSL::Verify->new($self->cacert);
+        my $ca = Crypt::OpenSSL::Verify->new($self->cacert, { strict_certs => 0, });
         if ($ca->verify($cert)) {
             return sprintf("%s (verified)", $cert->subject);
         } else {

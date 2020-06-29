@@ -118,7 +118,7 @@ sub handle_response {
 
     # verify the signing certificate
     my $cert = $x->signer_cert;
-    my $ca = Crypt::OpenSSL::Verify->new($self->cacert);
+    my $ca = Crypt::OpenSSL::Verify->new($self->cacert, { strict_certs => 0, });
     $ret = $ca->verify($cert);
     die "bad signer cert" unless $ret;
 
@@ -156,7 +156,7 @@ sub handle_request {
         die "bad signature" unless $ret;
 
         my $cert = $x->signer_cert;
-        my $ca = Crypt::OpenSSL::Verify->new($self->cacert);
+        my $ca = Crypt::OpenSSL::Verify->new($self->cacert, { strict_certs => 0, });
         $ret = $ca->verify($cert);
         die "bad certificate in request: ".$cert->subject unless $ret;
 
